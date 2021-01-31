@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'city_temp.dart';
 
 class FavoritesForecast extends StatelessWidget {

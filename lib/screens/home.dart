@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
+import 'package:weather_app/methods/data_methods.dart';
+import 'package:weather_app/methods/locaion_methods.dart';
 import 'package:weather_app/widgets/background_widget.dart';
 import 'package:weather_app/widgets/basic_widgets.dart';
 import 'package:weather_app/widgets/city_data.dart';
 import 'package:weather_app/widgets/favorite_button.dart';
 import 'package:weather_app/widgets/five_days_forecast.dart';
-
+import 'package:weather_app/widgets/search_field_widget.dart';
 import 'favorites.dart';
 
 class Home extends StatefulWidget {
@@ -14,6 +16,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Location location = Location();
+  DataMethods dataMethods = DataMethods();
   goToFavorite() {
     Navigator.push(
       context,
@@ -36,14 +40,14 @@ class _HomeState extends State<Home> {
             goToFavorite();
           },
         ),
-        actions: [
-          IconButton(
-            onPressed: null,
-            icon: Icon(
-              Icons.search,
-            ),
-          ),
-        ],
+//        actions: [
+//          IconButton(
+//            onPressed: null,
+//            icon: Icon(
+//              Icons.search,
+//            ),
+//          ),
+//        ],
       ),
       body: BackgroundWidget(
         child: Padding(
@@ -51,6 +55,16 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              SearchField(),
+              BasicButton(
+                onPress: () {
+                  dataMethods.getData();
+//                  location.getLocation();
+//                  print(location.latitude);
+//                  print(location.longitude);
+                },
+                title: Constants.GET_CURRENT_LOCATION,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
