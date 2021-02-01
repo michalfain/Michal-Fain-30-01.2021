@@ -8,12 +8,12 @@ class FavoritesForecast extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        TitleTemp(title: 'Tel Aviv', icon: Icons.wb_sunny),
-        TitleTemp(title: 'Tel Aviv', icon: Icons.wb_sunny),
-        TitleTemp(title: 'Tel Aviv', icon: Icons.wb_sunny),
-        TitleTemp(title: 'Tel Aviv', icon: Icons.wb_sunny),
-        TitleTemp(title: 'Tel Aviv', icon: Icons.wb_sunny),
-        TitleTemp(title: 'Tel Aviv', icon: Icons.wb_sunny),
+        TitleTemp(title: 'Tel Aviv', temperature: '18', description: 'Clear'),
+        TitleTemp(title: 'Tel Aviv', temperature: '18', description: 'Clear'),
+        TitleTemp(title: 'Tel Aviv', temperature: '18', description: 'Clear'),
+        TitleTemp(title: 'Tel Aviv', temperature: '18', description: 'Clear'),
+        TitleTemp(title: 'Tel Aviv', temperature: '18', description: 'Clear'),
+        TitleTemp(title: 'Tel Aviv', temperature: '18', description: 'Clear'),
       ],
     );
   }

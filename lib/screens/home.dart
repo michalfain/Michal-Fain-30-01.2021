@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/methods/data_methods.dart';
-import 'package:weather_app/methods/locaion_methods.dart';
+import 'package:weather_app/types/data.dart';
 import 'package:weather_app/widgets/background_widget.dart';
 import 'package:weather_app/widgets/basic_widgets.dart';
 import 'package:weather_app/widgets/city_data.dart';
+import 'package:weather_app/widgets/error_snack_bar.dart';
 import 'package:weather_app/widgets/favorite_button.dart';
 import 'package:weather_app/widgets/five_days_forecast.dart';
 import 'package:weather_app/widgets/search_field_widget.dart';
@@ -16,8 +17,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Location location = Location();
+  String city;
+  String temperature;
+  String description;
+  String key;
+  Data weatherData;
   DataMethods dataMethods = DataMethods();
+  bool isLoading = true;
+  SnackBar snackBar = SnackBar(
+    content: StringText(text: 'hi'), //todo: handle snackbar
+  );
+
+  void initState() {
+    dataMethods.getTemperature().then((value) {
+      {
+        temperature = value.temperature;
+        description = value.description;
+        if (temperature != null && description != null) {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      }
+    });
+    super.initState();
+  }
+
   goToFavorite() {
     Navigator.push(
       context,
@@ -27,62 +52,60 @@ class _HomeState extends State<Home> {
     );
   }
 
+  showSnackBar() {
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: StringText(text: Constants.WEATHER),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.favorite),
-          onPressed: () {
-            goToFavorite();
-          },
-        ),
-//        actions: [
-//          IconButton(
-//            onPressed: null,
-//            icon: Icon(
-//              Icons.search,
-//            ),
-//          ),
-//        ],
-      ),
-      body: BackgroundWidget(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SearchField(),
-              BasicButton(
-                onPress: () {
-                  dataMethods.getData();
-//                  location.getLocation();
-//                  print(location.latitude);
-//                  print(location.longitude);
-                },
-                title: Constants.GET_CURRENT_LOCATION,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CityData(),
-                  FavoriteButton(),
-                ],
-              ),
-              Center(
-                child: StringText(
-                  text: Constants.SCATTERED_CLOUDS,
-                  style: TextStyle(color: Colors.black, fontSize: 30.0),
-                ),
-              ),
-              FiveDaysForecast(),
-            ],
+        appBar: AppBar(
+          title: Center(
+            child: StringText(text: Constants.WEATHER),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () {
+              goToFavorite();
+            },
           ),
         ),
-      ),
-    );
+        body: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Builder(
+                builder: (context) {
+                  return BackgroundWidget(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SearchField(),
+                          BasicButton(
+                            onPress: () {},
+                            title: Constants.GET_CURRENT_LOCATION,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              CityData(temperature),
+                              FavoriteButton(),
+                            ],
+                          ),
+                          Center(
+                            child: StringText(
+                              text: description,
+                              style: TextStyle(color: Colors.black, fontSize: 30.0),
+                            ),
+                          ),
+//                    FiveDaysForecast(),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ));
   }
 }

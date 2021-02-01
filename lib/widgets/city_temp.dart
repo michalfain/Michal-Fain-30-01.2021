@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'basic_widgets.dart';
 
 class TitleTemp extends StatelessWidget {
-  TitleTemp({this.icon, this.title});
+  TitleTemp({this.description, this.title, this.temperature});
   final String title;
-  final icon;
+  final String temperature;
+  final String description;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,10 +18,9 @@ class TitleTemp extends StatelessWidget {
             style: TextStyle(color: Colors.black54, fontSize: 20.0),
           ),
           StringText(
-            text: '38C',
+            text: temperature,
             style: TextStyle(color: Colors.black54, fontSize: 16.0),
           ),
-          Icon(icon),
         ],
       ),
     );
