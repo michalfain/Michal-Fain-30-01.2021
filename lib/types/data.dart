@@ -1,8 +1,8 @@
 class Data {
-  String _key = 'un';
-  String _city = 'un';
-  String _temperature = 'un';
-  String _description = 'un';
+  String _key;
+  String _city;
+  String _temperature;
+  String _description;
 
   String get key => _key;
 
@@ -27,8 +27,4 @@ class Data {
   set city(String value) {
     _city = value;
   }
-
-//  Data(this.key, this.city);
-//  Data(this.temperature, this.description);
-//  Data(this.key, this.city, this.temperature, this.description);
 }

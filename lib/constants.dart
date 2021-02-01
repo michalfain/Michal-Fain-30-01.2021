@@ -9,4 +9,6 @@ class Constants {
   static const API_KEY = '1u9Be1cASaCvn8rSpfZbw3kcXpi1HzuS';
   static const API_KEY_2 = 'Pw8KFxNBwil5aR34yaU4GpgtY4Z3TPFC';
   static const WEBSITE = 'http://dataservice.accuweather.com';
+  static const MIN_TEMP = 'Min ';
+  static const MAX_TEMP = 'Max ';
 }

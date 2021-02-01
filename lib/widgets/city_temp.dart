@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'basic_widgets.dart';
 
@@ -10,7 +11,10 @@ class TitleTemp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey),
+      ),
       child: Column(
         children: [
           StringText(
@@ -19,6 +23,10 @@ class TitleTemp extends StatelessWidget {
           ),
           StringText(
             text: temperature,
+            style: TextStyle(color: Colors.black54, fontSize: 16.0),
+          ),
+          StringText(
+            text: description,
             style: TextStyle(color: Colors.black54, fontSize: 16.0),
           ),
         ],
