@@ -34,7 +34,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             onPress: () {
               addToFavorites();
             },
-            title: Constants.ADD_TO_FAVORITES),
+            title: isFavorite ? Constants.REMOVE_FROM_FAVORITES : Constants.ADD_TO_FAVORITES),
       ],
     );
   }

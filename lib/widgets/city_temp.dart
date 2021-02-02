@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../constants.dart';
 import 'basic_widgets.dart';
 
 class TitleTemp extends StatelessWidget {
@@ -13,7 +14,6 @@ class TitleTemp extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey),
       ),
       child: Column(
         children: [
@@ -21,14 +21,22 @@ class TitleTemp extends StatelessWidget {
             text: title,
             style: TextStyle(color: Colors.black54, fontSize: 20.0),
           ),
-          StringText(
-            text: temperature,
-            style: TextStyle(color: Colors.black54, fontSize: 16.0),
+          Row(
+            children: [
+              StringText(
+                text: temperature,
+                style: TextStyle(color: Colors.black54, fontSize: 16.0),
+              ),
+              StringText(
+                text: Constants.DEGREE_SYMBOL,
+                style: TextStyle(color: Colors.black54, fontSize: 16.0),
+              ),
+            ],
           ),
-          StringText(
-            text: description,
-            style: TextStyle(color: Colors.black54, fontSize: 16.0),
-          ),
+//          StringText(
+//            text: description,
+//            style: TextStyle(color: Colors.black54, fontSize: 16.0),
+//          ),
         ],
       ),
     );

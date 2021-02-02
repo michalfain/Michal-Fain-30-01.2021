@@ -3,6 +3,8 @@ class Data {
   String _city;
   String _temperature;
   String _description;
+  String _minTemp;
+  String _maxTemp;
 
   String get key => _key;
 
@@ -26,5 +28,17 @@ class Data {
 
   set city(String value) {
     _city = value;
+  }
+
+  String get maxTemp => _maxTemp;
+
+  set maxTemp(String value) {
+    _maxTemp = value;
+  }
+
+  String get minTemp => _minTemp;
+
+  set minTemp(String value) {
+    _minTemp = value;
   }
 }

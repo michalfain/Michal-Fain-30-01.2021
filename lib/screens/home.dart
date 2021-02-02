@@ -27,20 +27,21 @@ class _HomeState extends State<Home> {
   SnackBar snackBar = SnackBar(
     content: StringText(text: 'hi'), //todo: handle snackbar
   );
+  List<Data> fiveDaysData = [];
 
   void initState() {
     dataMethods.getTemperature().then((value) {
       {
         temperature = value.temperature;
         description = value.description;
-        if (temperature != null && description != null) {
-          setState(() {
-            isLoading = false;
-          });
-        }
+        setState(() {
+          isLoading = false;
+        });
       }
     });
-//    dataMethods.getFiveDaysForecast();
+    dataMethods.getFiveDaysForecast().then((value) => {
+          fiveDaysData = value,
+        });
     super.initState();
   }
 
@@ -83,10 +84,6 @@ class _HomeState extends State<Home> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-//                          BasicButton(
-//                            onPress: () {},
-//                            title: Constants.GET_CURRENT_LOCATION,
-//                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -100,7 +97,7 @@ class _HomeState extends State<Home> {
                               style: TextStyle(color: Colors.black, fontSize: 30.0),
                             ),
                           ),
-                          FiveDaysForecast(),
+                          FiveDaysForecast(fiveDaysData),
                           SearchField(),
                         ],
                       ),

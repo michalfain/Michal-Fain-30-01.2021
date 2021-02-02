@@ -31,11 +31,11 @@ class _DaysForecastState extends State<DaysForecast> {
             Row(
               children: [
                 StringText(
-                  text: Constants.MIN_TEMP,
+                  text: widget.minTemp,
                   style: TextStyle(color: Colors.black54, fontSize: 16.0),
                 ),
                 StringText(
-                  text: widget.minTemp,
+                  text: Constants.DEGREE_SYMBOL,
                   style: TextStyle(color: Colors.black54, fontSize: 16.0),
                 ),
               ],
@@ -43,11 +43,11 @@ class _DaysForecastState extends State<DaysForecast> {
             Row(
               children: [
                 StringText(
-                  text: Constants.MAX_TEMP,
+                  text: widget.maxTemp,
                   style: TextStyle(color: Colors.black54, fontSize: 16.0),
                 ),
                 StringText(
-                  text: widget.maxTemp,
+                  text: Constants.DEGREE_SYMBOL,
                   style: TextStyle(color: Colors.black54, fontSize: 16.0),
                 ),
               ],

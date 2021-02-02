@@ -7,12 +7,16 @@ class SearchField extends StatefulWidget {
 }
 
 class _SearchFieldState extends State<SearchField> {
+  String cityName;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextField(
+          onChanged: (value) {
+            cityName = value;
+          },
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white54,
@@ -20,7 +24,6 @@ class _SearchFieldState extends State<SearchField> {
             hintText: Constants.SEARCH_HERE,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
-//              borderSide: BorderSide.none,
             ),
           ),
         ),
