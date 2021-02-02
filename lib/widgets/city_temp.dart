@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/screens/home.dart';
 import '../constants.dart';
 import 'basic_widgets.dart';
 
 class TitleTemp extends StatelessWidget {
-  TitleTemp({this.description, this.title, this.temperature});
+  TitleTemp({this.description, this.title, this.temperature, this.cityKey});
   final String title;
   final String temperature;
   final String description;
+  final String cityKey;
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +26,13 @@ class TitleTemp extends StatelessWidget {
             style: TextStyle(color: Colors.black54, fontSize: 20.0),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               StringText(
                 text: temperature,
                 style: TextStyle(color: Colors.black54, fontSize: 16.0),
               ),
-              StringText(
-                text: Constants.DEGREE_SYMBOL,
-                style: TextStyle(color: Colors.black54, fontSize: 16.0),
-              ),
+              degreeSymbol(),
             ],
           ),
 //          StringText(

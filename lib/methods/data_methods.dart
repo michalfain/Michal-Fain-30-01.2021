@@ -10,16 +10,14 @@ const apiKey4 = Constants.API_KEY_4;
 const website = Constants.WEBSITE;
 
 class DataMethods {
-  String key;
-  Future getData() async {
+  Future getData(String city) async {
     http.Response response =
-        await http.get('$website/locations/v1/cities/search?apikey=$apiKey4&q=tel%20aviv&language=en-us&details=true');
+        await http.get('$website/locations/v1/cities/search?apikey=$apiKey2&q=$city&language=en-us&details=true');
     if (response.statusCode == 200) {
       String body = response.body;
       var decodeData = jsonDecode(body);
       Data data = Data();
       data.key = decodeData[0]['Key'];
-      key = data.key;
       data.city = decodeData[0]['EnglishName'];
       print(data.key);
       return data;
@@ -28,27 +26,30 @@ class DataMethods {
     }
   }
 
-  Future getTemperature() async {
-    Data returnedKey = await getData();
-    http.Response response =
-        await http.get('$website/currentconditions/v1/${returnedKey.key}?apikey=$apiKey4&language=en-us');
+  Future getTemperature(String key, String newCity) async {
+    Data returnedData = await getData(newCity);
+    http.Response response = await http.get('$website/currentconditions/v1/$key?apikey=$apiKey2&language=en-us');
     if (response.statusCode == 200) {
       String body = response.body;
       var decodeData = jsonDecode(body);
       Data data = Data();
       data.temperature = decodeData[0]['Temperature']['Metric']['Value'].toString();
       data.description = decodeData[0]['WeatherText'];
+      data.city = returnedData.city;
+      data.key = returnedData.key;
       return data;
     } else {
       print(response.statusCode); //todo: handle exception
     }
   }
 
-  Future getFiveDaysForecast() async {
-    Data returnedKey = await getData();
+  Future getFiveDaysForecast(String fiveDaysCity) async {
+    Data returnedKey = await getData(fiveDaysCity);
     http.Response response = await http.get(
-        '$website/forecasts/v1/daily/5day/${returnedKey.key}?apikey=$apiKey4&language=en-us&details=true&metric=true');
+        '$website/forecasts/v1/daily/5day/${returnedKey.key}?apikey=$apiKey2&language=en-us&details=true&metric=true');
     if (response.statusCode == 200) {
+      DateTime date = DateTime.now();
+      int newDateFormat = date.weekday;
       String body = response.body;
       var decodeData = jsonDecode(body);
       List<Data> fiveDaysData = List();
@@ -56,6 +57,7 @@ class DataMethods {
         Data d = Data();
         d.minTemp = decodeData['DailyForecasts'][i]['Temperature']['Minimum']['Value'].toString();
         d.maxTemp = decodeData['DailyForecasts'][i]['Temperature']['Maximum']['Value'].toString();
+        d.firstDay = newDateFormat;
         fiveDaysData.add(d);
       }
       print(fiveDaysData);

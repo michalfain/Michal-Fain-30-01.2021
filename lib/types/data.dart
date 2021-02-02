@@ -3,6 +3,7 @@ class Data {
   String _city;
   String _temperature;
   String _description;
+  int _firstdDay;
   String _minTemp;
   String _maxTemp;
 
@@ -18,6 +19,12 @@ class Data {
 
   set description(String value) {
     _description = value;
+  }
+
+  int get firstDay => _firstdDay;
+
+  set firstDay(int value) {
+    _firstdDay = value;
   }
 
   String get temperature => _temperature;

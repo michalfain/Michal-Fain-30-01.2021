@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class StringText extends StatelessWidget {
   StringText({this.text, this.style});
   final String text;
@@ -8,6 +10,13 @@ class StringText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text, style: style ?? TextStyle(color: Colors.white70));
   }
+}
+
+Widget degreeSymbol() {
+  return StringText(
+    text: Constants.DEGREE_SYMBOL,
+    style: TextStyle(color: Colors.black54, fontSize: 16.0),
+  );
 }
 
 class BasicButton extends StatelessWidget {

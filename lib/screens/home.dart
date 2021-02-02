@@ -12,16 +12,18 @@ import 'package:weather_app/widgets/search_field_widget.dart';
 import 'favorites.dart';
 
 class Home extends StatefulWidget {
+  Home(this.cityKey, this.city);
+  final String cityKey;
+  final String city;
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  String city;
   String temperature;
   String description;
   String key;
-  Data weatherData;
+  String city;
   DataMethods dataMethods = DataMethods();
   bool isLoading = true;
   SnackBar snackBar = SnackBar(
@@ -30,17 +32,19 @@ class _HomeState extends State<Home> {
   List<Data> fiveDaysData = [];
 
   void initState() {
-    dataMethods.getTemperature().then((value) {
+    dataMethods.getTemperature(widget.cityKey, widget.city).then((value) {
       {
-        temperature = value.temperature;
-        description = value.description;
-        setState(() {
-          isLoading = false;
-        });
+        key = value.key ?? 'unavailable';
+        city = value.city ?? 'unavailable';
+        temperature = value.temperature ?? 'unavailable';
+        description = value.description ?? 'unavailable';
       }
     });
-    dataMethods.getFiveDaysForecast().then((value) => {
+    dataMethods.getFiveDaysForecast(widget.city).then((value) => {
           fiveDaysData = value,
+          setState(() {
+            isLoading = false;
+          })
         });
     super.initState();
   }
@@ -85,9 +89,9 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              CityData(temperature),
+                              CityData(city: city, temperature: temperature),
                               FavoriteButton(),
                             ],
                           ),
@@ -97,7 +101,7 @@ class _HomeState extends State<Home> {
                               style: TextStyle(color: Colors.black, fontSize: 30.0),
                             ),
                           ),
-                          FiveDaysForecast(fiveDaysData),
+                          FiveDaysForecast(fiveDaysData), //todo: fix loading
                           SearchField(),
                         ],
                       ),

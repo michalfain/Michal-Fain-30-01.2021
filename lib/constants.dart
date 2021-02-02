@@ -1,6 +1,7 @@
 class Constants {
   static const WEATHER = 'Weather';
   static const TEL_AVIV = 'Tel Aviv';
+  static const TEL_AVIV_CITY_KEY = '215854';
   static const ADD_TO_FAVORITES = 'Add to Favorites';
   static const REMOVE_FROM_FAVORITES = 'Remove from Favorites';
   static const SCATTERED_CLOUDS = 'Scattered Clouds';
@@ -14,5 +15,6 @@ class Constants {
   static const WEBSITE = 'http://dataservice.accuweather.com';
   static const MIN_TEMP = 'Min ';
   static const MAX_TEMP = 'Max ';
-  static const DEGREE_SYMBOL = '° ';
+  static const DEGREE_SYMBOL = '°';
+  static const List<String> DAYS_OF_WEEK = ['MON', 'TUE', 'WED', 'THI', 'FRI', 'SUT', 'SUN'];
 }

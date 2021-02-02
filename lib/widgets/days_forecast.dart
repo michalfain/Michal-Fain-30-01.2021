@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/constants.dart';
 import 'basic_widgets.dart';
 
-class DaysForecast extends StatefulWidget {
+class DaysForecast extends StatelessWidget {
   DaysForecast({this.day, this.minTemp, this.maxTemp});
 
   final String day;
   final String minTemp;
   final String maxTemp;
-  @override
-  _DaysForecastState createState() => _DaysForecastState();
-}
 
-class _DaysForecastState extends State<DaysForecast> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,31 +20,25 @@ class _DaysForecastState extends State<DaysForecast> {
         child: Column(
           children: [
             StringText(
-              text: widget.day,
+              text: day,
               style: TextStyle(color: Colors.black54, fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             Row(
               children: [
                 StringText(
-                  text: widget.minTemp,
+                  text: minTemp,
                   style: TextStyle(color: Colors.black54, fontSize: 16.0),
                 ),
-                StringText(
-                  text: Constants.DEGREE_SYMBOL,
-                  style: TextStyle(color: Colors.black54, fontSize: 16.0),
-                ),
+                degreeSymbol(),
               ],
             ),
             Row(
               children: [
                 StringText(
-                  text: widget.maxTemp,
+                  text: maxTemp,
                   style: TextStyle(color: Colors.black54, fontSize: 16.0),
                 ),
-                StringText(
-                  text: Constants.DEGREE_SYMBOL,
-                  style: TextStyle(color: Colors.black54, fontSize: 16.0),
-                ),
+                degreeSymbol(),
               ],
             ),
           ],
