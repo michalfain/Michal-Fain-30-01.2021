@@ -5,7 +5,6 @@ import 'package:weather_app/types/data.dart';
 import 'package:weather_app/widgets/background_widget.dart';
 import 'package:weather_app/widgets/basic_widgets.dart';
 import 'package:weather_app/widgets/city_data.dart';
-import 'package:weather_app/widgets/error_snack_bar.dart';
 import 'package:weather_app/widgets/favorite_button.dart';
 import 'package:weather_app/widgets/five_days_forecast.dart';
 import 'package:weather_app/widgets/search_field_widget.dart';
@@ -20,12 +19,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String temperature;
+  String temperature; //todo: make object of the parameters
   String description;
   String key;
   String city;
   DataMethods dataMethods = DataMethods();
   bool isLoading = true;
+  bool isDaysLoading = true;
   SnackBar snackBar = SnackBar(
     content: StringText(text: 'hi'), //todo: handle snackbar
   );
@@ -38,12 +38,15 @@ class _HomeState extends State<Home> {
         city = value.city ?? 'unavailable';
         temperature = value.temperature ?? 'unavailable';
         description = value.description ?? 'unavailable';
+        setState(() {
+          isLoading = false;
+        });
       }
     });
     dataMethods.getFiveDaysForecast(widget.city).then((value) => {
-          fiveDaysData = value,
           setState(() {
-            isLoading = false;
+            isDaysLoading = false;
+            fiveDaysData = value;
           })
         });
     super.initState();

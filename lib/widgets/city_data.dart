@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'city_temp.dart';
 
 class CityData extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/types/data.dart';
+
 import 'days_forecast.dart';
 
 class FiveDaysForecast extends StatefulWidget {
@@ -24,7 +25,7 @@ class _FiveDaysForecastState extends State<FiveDaysForecast> {
         ),
         DaysForecast(
           day: dayOfWeek == 7 ? Constants.DAYS_OF_WEEK[0] : Constants.DAYS_OF_WEEK[dayOfWeek + 1],
-          maxTemp: widget.fiveDays[1].minTemp,
+          maxTemp: widget.fiveDays[1].maxTemp,
           minTemp: widget.fiveDays[1].minTemp,
         ),
         DaysForecast(
@@ -34,7 +35,7 @@ class _FiveDaysForecastState extends State<FiveDaysForecast> {
         ),
         DaysForecast(
           day: dayOfWeek == 4 ? Constants.DAYS_OF_WEEK[2] : Constants.DAYS_OF_WEEK[dayOfWeek + 3],
-          maxTemp: widget.fiveDays[3].minTemp,
+          maxTemp: widget.fiveDays[3].maxTemp,
           minTemp: widget.fiveDays[3].minTemp,
         ),
         DaysForecast(
