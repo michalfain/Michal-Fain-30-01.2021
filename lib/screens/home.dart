@@ -19,10 +19,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String temperature; //todo: make object of the parameters
-  String description;
-  String key;
-  String city;
+  Data weatherData = Data();
   DataMethods dataMethods = DataMethods();
   bool isLoading = true;
   bool isDaysLoading = true;
@@ -34,12 +31,12 @@ class _HomeState extends State<Home> {
   void initState() {
     dataMethods.getTemperature(widget.cityKey, widget.city).then((value) {
       {
-        key = value.key ?? 'unavailable';
-        city = value.city ?? 'unavailable';
-        temperature = value.temperature ?? 'unavailable';
-        description = value.description ?? 'unavailable';
         setState(() {
           isLoading = false;
+          weatherData.key = value.key ?? 'unavailable';
+          weatherData.city = value.city ?? 'unavailable';
+          weatherData.temperature = value.temperature ?? 'unavailable';
+          weatherData.description = value.description ?? 'unavailable';
         });
       }
     });
@@ -91,21 +88,23 @@ class _HomeState extends State<Home> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+                          SearchField(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              CityData(city: city, temperature: temperature),
+                              CityData(
+                                data: weatherData,
+                              ),
                               FavoriteButton(),
                             ],
                           ),
                           Center(
                             child: StringText(
-                              text: description,
+                              text: weatherData.description,
                               style: TextStyle(color: Colors.black, fontSize: 30.0),
                             ),
                           ),
                           FiveDaysForecast(fiveDaysData), //todo: fix loading
-                          SearchField(),
                         ],
                       ),
                     ),

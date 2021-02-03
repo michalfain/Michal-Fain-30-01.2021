@@ -1,3 +1,5 @@
+import 'package:weather_app/types/data.dart';
+
 class Constants {
   static const WEATHER = 'Weather';
   static const TEL_AVIV = 'Tel Aviv';
@@ -17,4 +19,6 @@ class Constants {
   static const MAX_TEMP = 'Max ';
   static const DEGREE_SYMBOL = '°';
   static const List<String> DAYS_OF_WEEK = ['MON', 'TUE', 'WED', 'THI', 'FRI', 'SUT', 'SUN'];
+  // ignore: non_constant_identifier_names
+  static List<Data> FAVORITE_CITY_LIST = [Data(key: TEL_AVIV_CITY_KEY, city: TEL_AVIV), Data(key: '213225', city: 'Jerusalem'), Data(key: '328328', city: 'London') ,Data(key: '178087', city: 'Berlin')];
 }

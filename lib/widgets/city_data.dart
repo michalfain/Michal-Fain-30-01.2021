@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:weather_app/types/data.dart';
 import 'city_temp.dart';
 
 class CityData extends StatelessWidget {
-  CityData({this.temperature, this.city});
-  final String city;
-  final String temperature;
+  CityData({this.data});
+  final Data data;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class CityData extends StatelessWidget {
               Icons.location_city,
               size: 50.0,
             ),
-            TitleTemp(title: city, temperature: temperature),
+            TitleTemp(data: data),
           ],
         ),
       ),

@@ -13,7 +13,7 @@ const website = Constants.WEBSITE;
 class DataMethods {
   Future getData(String city) async {
     http.Response response =
-        await http.get('$website/locations/v1/cities/search?apikey=$apiKey4&q=$city&language=en-us&details=true');
+        await http.get('$website/locations/v1/cities/search?apikey=$apiKey&q=$city&language=en-us&details=true');
     try {
       if (response.statusCode == 200) {
         String body = response.body;
@@ -21,7 +21,6 @@ class DataMethods {
         Data data = Data();
         data.key = decodeData[0]['Key'];
         data.city = decodeData[0]['EnglishName'];
-        print(data.key);
         return data;
       } else {
         print(response.statusCode); //todo: handle exception
@@ -33,7 +32,7 @@ class DataMethods {
 
   Future getTemperature(String key, String newCity) async {
     Data returnedData = await getData(newCity);
-    http.Response response = await http.get('$website/currentconditions/v1/$key?apikey=$apiKey4&language=en-us');
+    http.Response response = await http.get('$website/currentconditions/v1/$key?apikey=$apiKey&language=en-us');
     try {
       if (response.statusCode == 200) {
         String body = response.body;
@@ -55,7 +54,7 @@ class DataMethods {
   Future getFiveDaysForecast(String fiveDaysCity) async {
     Data returnedKey = await getData(fiveDaysCity);
     http.Response response = await http.get(
-        '$website/forecasts/v1/daily/5day/${returnedKey.key}?apikey=$apiKey4&language=en-us&details=true&metric=true');
+        '$website/forecasts/v1/daily/5day/${returnedKey.key}?apikey=$apiKey&language=en-us&details=true&metric=true');
     try {
       if (response.statusCode == 200) {
         DateTime date = DateTime.now();
@@ -70,7 +69,6 @@ class DataMethods {
           d.firstDay = newDateFormat;
           fiveDaysData.add(d);
         }
-        print(fiveDaysData);
         return fiveDaysData;
       } else {
         print(response.statusCode); //todo: handle exception
@@ -82,7 +80,7 @@ class DataMethods {
 
   Future searchCity(String search) async {
     http.Response response =
-        await http.get('$website/locations/v1/cities/autocomplete?apikey=$apiKey4&q=$search&language=en-us');
+        await http.get('$website/locations/v1/cities/autocomplete?apikey=$apiKey&q=$search&language=en-us');
     try {
       if (response.statusCode == 200) {
         String body = response.body;
@@ -93,6 +91,8 @@ class DataMethods {
           d.key = decodeData[i]['Key'];
           d.city = decodeData[i]['LocalizedName'];
           searchCity.add(d);
+          print(searchCity[i].city);
+          print(searchCity[i].key);
         }
         return searchCity;
       } else {
