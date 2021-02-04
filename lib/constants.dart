@@ -5,7 +5,7 @@ class Constants {
   static const TEL_AVIV = 'Tel Aviv';
   static const TEL_AVIV_CITY_KEY = '215854';
   static const ADD_TO_FAVORITES = 'Add to Favorites';
-  static const REMOVE_FROM_FAVORITES = 'Remove from Favorites';
+  static const REMOVE_FROM_FAVORITES = 'Remove';
   static const SCATTERED_CLOUDS = 'Scattered Clouds';
   static const MY_FAVORITES = 'My Favorites';
   static const GET_CURRENT_LOCATION = 'Get Current Location';
@@ -20,5 +20,10 @@ class Constants {
   static const DEGREE_SYMBOL = '°';
   static const List<String> DAYS_OF_WEEK = ['MON', 'TUE', 'WED', 'THI', 'FRI', 'SUT', 'SUN'];
   // ignore: non_constant_identifier_names
-  static List<Data> FAVORITE_CITY_LIST = [Data(key: TEL_AVIV_CITY_KEY, city: TEL_AVIV), Data(key: '213225', city: 'Jerusalem'), Data(key: '328328', city: 'London') ,Data(key: '178087', city: 'Berlin')];
+  static List<Data> FAVORITE_CITY_LIST = [
+    Data(key: TEL_AVIV_CITY_KEY, city: TEL_AVIV),
+    Data(key: '213225', city: 'Jerusalem'),
+    Data(key: '328328', city: 'London'),
+    Data(key: '178087', city: 'Berlin')
+  ];
 }

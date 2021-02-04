@@ -20,19 +20,26 @@ Widget degreeSymbol() {
 }
 
 class BasicButton extends StatelessWidget {
-  BasicButton({this.onPress, this.title, this.color});
+  BasicButton({this.onPress, this.title, this.color, this.child});
   final Function onPress;
   final String title;
   final Color color;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       color: color,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       onPressed: onPress,
-      child: StringText(
-        text: title,
-        style: TextStyle(color: Colors.black),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          child,
+          StringText(
+            text: title,
+            style: TextStyle(color: Colors.black),
+          ),
+        ],
       ),
     );
   }
