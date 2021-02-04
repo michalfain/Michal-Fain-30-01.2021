@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/types/data.dart';
-
 import 'basic_widgets.dart';
 
 class TitleTemp extends StatelessWidget {

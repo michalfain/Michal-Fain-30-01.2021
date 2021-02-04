@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/methods/data_methods.dart';
+import 'package:weather_app/methods/general_methods.dart';
 import 'package:weather_app/types/data.dart';
-import 'package:weather_app/widgets/background_widget.dart';
-import 'package:weather_app/widgets/basic_widgets.dart';
-import 'package:weather_app/widgets/city_data.dart';
-import 'package:weather_app/widgets/favorite_button.dart';
-import 'package:weather_app/widgets/five_days_forecast.dart';
-import 'package:weather_app/widgets/search_field_widget.dart';
-import 'favorites.dart';
+import 'package:weather_app/widgets/general_widget/background_widget.dart';
+import 'package:weather_app/widgets/general_widget/basic_widgets.dart';
+import 'package:weather_app/widgets/home_widget/city_data.dart';
+import 'package:weather_app/widgets/home_widget/favorite_button.dart';
+import 'package:weather_app/widgets/home_widget/five_days_forecast.dart';
+import 'package:weather_app/widgets/home_widget/get_weather_button.dart';
+import 'package:weather_app/widgets/home_widget/search_field_widget.dart';
 
 class Home extends StatefulWidget {
   Home(this.cityKey, this.city);
@@ -19,10 +21,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  GeneralMethods generalMethods = GeneralMethods();
   Data weatherData = Data();
   DataMethods dataMethods = DataMethods();
   bool isLoading = true;
   bool isDaysLoading = true;
+  bool isPressed = false;
+  TextEditingController cityController = TextEditingController();
   SnackBar snackBar = SnackBar(
     content: StringText(text: 'hi'), //todo: handle snackbar
   );
@@ -33,10 +38,10 @@ class _HomeState extends State<Home> {
       {
         setState(() {
           isLoading = false;
-          weatherData.key = value.key ?? 'unavailable';
-          weatherData.city = value.city ?? 'unavailable';
-          weatherData.temperature = value.temperature ?? 'unavailable';
-          weatherData.description = value.description ?? 'unavailable';
+          weatherData.key = value.key;
+          weatherData.city = value.city;
+          weatherData.temperature = value.temperature;
+          weatherData.description = value.description;
         });
       }
     });
@@ -49,17 +54,34 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  goToFavorite() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => FavoriteScreen(),
-      ),
-    );
+  updateUI(String city) async {
+    if (city != null) {
+      Data d = await dataMethods.getData(city);
+      dataMethods.getTemperature(d.key, d.city);
+      List newFiveDays = await dataMethods.getFiveDaysForecast(d.city);
+      setState(() {
+        weatherData.key = d.key;
+        weatherData.city = d.city;
+        weatherData.temperature = d.temperature;
+        weatherData.description = d.description;
+        fiveDaysData = newFiveDays;
+        isPressed = true;
+      });
+    }
   }
 
-  showSnackBar() {
-    Scaffold.of(context).showSnackBar(snackBar);
+  addToFavorites(Data data) {
+    setState(() {
+      if (data != null) {
+        Data d = Data();
+        d.city = data.city;
+        d.key = data.key;
+        d.temperature = data.temperature;
+        d.description = data.description;
+        Constants.FAVORITE_CITY_LIST.add(d);
+        isPressed = false;
+      }
+    });
   }
 
   @override
@@ -72,7 +94,7 @@ class _HomeState extends State<Home> {
           leading: IconButton(
             icon: Icon(Icons.favorite),
             onPressed: () {
-              goToFavorite();
+              generalMethods.goToFavorite(context);
             },
           ),
         ),
@@ -88,14 +110,24 @@ class _HomeState extends State<Home> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          SearchField(),
+                          SearchField(
+                            controller: cityController,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CityData(
                                 data: weatherData,
                               ),
-                              FavoriteButton(),
+                              Container(
+                                child: !isPressed
+                                    ? GetWeatherButton(
+                                        onPress: updateUI(cityController.text),
+                                      )
+                                    : FavoriteButton(
+                                        onPress: addToFavorites(weatherData),
+                                      ),
+                              ),
                             ],
                           ),
                           Center(

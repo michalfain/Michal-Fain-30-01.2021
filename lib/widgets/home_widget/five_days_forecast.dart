@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/types/data.dart';
-
 import 'days_forecast.dart';
 
 class FiveDaysForecast extends StatefulWidget {

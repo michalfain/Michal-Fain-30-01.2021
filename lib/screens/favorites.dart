@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
-import 'package:weather_app/widgets/background_widget.dart';
-import 'package:weather_app/widgets/basic_widgets.dart';
-import 'package:weather_app/widgets/favorites_forecast.dart';
+import 'package:weather_app/widgets/favorite_widget/favorites_forecast.dart';
+import 'package:weather_app/widgets/general_widget/background_widget.dart';
+import 'package:weather_app/widgets/general_widget/basic_widgets.dart';
 
 class FavoriteScreen extends StatelessWidget {
   @override

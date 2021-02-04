@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/types/data.dart';
 
-const apiKey = Constants.API_KEY;
-const apiKey2 = Constants.API_KEY_2;
-const apiKey3 = Constants.API_KEY_3;
-const apiKey4 = Constants.API_KEY_4;
+//const apiKey = Constants.API_KEY;
+//const apiKey = Constants.API_KEY_2;
+//const apiKey = Constants.API_KEY_3;
+const apiKey = Constants.API_KEY_4;
 const website = Constants.WEBSITE;
 
 class DataMethods {

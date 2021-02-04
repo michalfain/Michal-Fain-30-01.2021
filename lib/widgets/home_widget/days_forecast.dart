@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'basic_widgets.dart';
+import '../general_widget/basic_widgets.dart';
 
 class DaysForecast extends StatelessWidget {
   DaysForecast({this.day, this.minTemp, this.maxTemp});

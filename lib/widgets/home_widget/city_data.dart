@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/types/data.dart';
-import 'city_temp.dart';
+import '../general_widget/city_temp.dart';
 
 class CityData extends StatelessWidget {
   CityData({this.data});

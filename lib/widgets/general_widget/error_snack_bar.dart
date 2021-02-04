@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/widgets/basic_widgets.dart';
+import 'basic_widgets.dart';
 
 class ErrorSnackBar extends StatefulWidget {
   @override

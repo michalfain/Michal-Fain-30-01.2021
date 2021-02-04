@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
+import '../../constants.dart';
 
 class StringText extends StatelessWidget {
   StringText({this.text, this.style});
@@ -10,6 +9,15 @@ class StringText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text, style: style ?? TextStyle(color: Colors.white70));
   }
+}
+
+Widget searchContainer(String text, Function onTap) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Card(
+      child: StringText(text: text),
+    ),
+  );
 }
 
 Widget degreeSymbol() {
