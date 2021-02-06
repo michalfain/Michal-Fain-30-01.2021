@@ -4,6 +4,7 @@ import 'package:weather_app/constants.dart';
 import 'package:weather_app/methods/data_methods.dart';
 import 'package:weather_app/methods/general_methods.dart';
 import 'package:weather_app/types/data.dart';
+import 'package:weather_app/types/error_data.dart';
 import 'package:weather_app/widgets/general_widget/background_widget.dart';
 import 'package:weather_app/widgets/general_widget/basic_widgets.dart';
 import 'package:weather_app/widgets/home_widget/city_data.dart';
@@ -27,6 +28,7 @@ class _HomeState extends State<Home> {
   bool isLoading = true;
   bool isDaysLoading = true;
   bool isPressed = false;
+  bool isFavorite = false;
   TextEditingController cityController = TextEditingController();
   List<Data> fiveDaysData = [];
 
@@ -55,7 +57,6 @@ class _HomeState extends State<Home> {
     if (data != null) {
       generalMethods.setFavoriteCity(data.city);
       generalMethods.setFavoriteKey(data.key);
-//      Constants.FAVORITE_CITY_LIST.add(data);
     }
     setState(() {
       isPressed = false;
@@ -73,6 +74,11 @@ class _HomeState extends State<Home> {
             });
           });
         });
+      });
+    }
+    if (Constants.FAVORITE_CITY_LIST.contains(city)) {
+      setState(() {
+        isFavorite = true;
       });
     }
   }
@@ -100,51 +106,62 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(16.0),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      SearchField(
-                        controller: cityController,
-                        onTap: () {
-                          updateUI(cityController.text);
-                          cityController.clear();
-                          isPressed = true;
-                        },
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CityData(
-                            data: weatherData,
-                          ),
-                          Container(
-                            child: !isPressed
-                                ? GetWeatherButton(
-                                    onPress: () async {
-                                      updateUI(cityController.text);
-                                      setState(() {
-                                        isPressed = true;
-                                      });
-                                    },
-                                  )
-                                : FavoriteButton(
-                                    onPressed: () async {
-                                      addToFavorites(weatherData);
-                                      setState(() {
-                                        isPressed = false;
-                                      });
-                                    },
-                                  ),
-                          ),
-                        ],
-                      ),
-                      Center(
-                        child: StringText(
-                          text: weatherData.description,
-                          style: TextStyle(color: Colors.black, fontSize: 30.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SearchField(
+                          controller: cityController,
+                          onTap: () {
+                            updateUI(cityController.text);
+                            cityController.clear();
+                            isPressed = true;
+                          },
                         ),
-                      ),
-                      FiveDaysForecast(fiveDaysData), //todo: fix loading
-                    ],
+                        isFavorite
+                            ? StringText(
+                                text: Constants.FAVORITE,
+                                style: TextStyle(
+                                  color: Colors.pink,
+                                  fontSize: 10.0,
+                                ))
+                            : SizedBox(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CityData(
+                              data: weatherData,
+                            ),
+                            Container(
+                              child: !isPressed
+                                  ? GetWeatherButton(
+                                      onPress: () async {
+                                        updateUI(cityController.text);
+                                        setState(() {
+                                          isPressed = true;
+                                          cityController.clear();
+                                        });
+                                      },
+                                    )
+                                  : FavoriteButton(
+                                      onPressed: () async {
+                                        addToFavorites(weatherData);
+                                        setState(() {
+                                          isPressed = false;
+                                        });
+                                      },
+                                    ),
+                            ),
+                          ],
+                        ),
+                        Center(
+                          child: StringText(
+                            text: weatherData.description,
+                            style: TextStyle(color: Colors.black, fontSize: 30.0),
+                          ),
+                        ),
+                        FiveDaysForecast(fiveDaysData), //todo: fix loading
+                      ],
+                    ),
                   ),
                 ),
               ),

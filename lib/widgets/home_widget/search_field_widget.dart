@@ -37,9 +37,10 @@ class _SearchFieldState extends State<SearchField> {
               textAlign: TextAlign.left,
               controller: widget.controller,
               onChanged: (value) {
-                dataMethods
-                    .searchCity(widget.controller.text)
-                    .then((value) => {searchedCities = value, updateList(searchedCities)});
+                dataMethods.searchCity(widget.controller.text).then((value) => {
+                      searchedCities = value,
+                      updateList(searchedCities),
+                    });
               },
               decoration: InputDecoration(
                 filled: true,
@@ -57,7 +58,13 @@ class _SearchFieldState extends State<SearchField> {
                     shrinkWrap: true,
                     itemCount: searchedCities.length,
                     itemBuilder: (context, i) {
-                      return searchContainer(searchedCities[i].city, widget.onTap);
+                      return searchContainer(
+                          text: searchedCities[i].city,
+                          onTap: () {
+                            setState(() {
+                              widget.controller.text = searchedCities[i].city;
+                            });
+                          });
                     },
                   )
           ],

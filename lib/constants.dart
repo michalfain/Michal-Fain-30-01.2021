@@ -8,13 +8,16 @@ class Constants {
   static const FAVORITE_KEY = 'key';
   static const FAVORITE_LIST_KEY = 'key list';
   static const TEL_AVIV_CITY_KEY = '215854';
-  static const ADD_TO_FAVORITES = 'Add to Favorites';
+  static const ADD_TO_FAVORITES = 'Add';
   static const REMOVE_FROM_FAVORITES = 'Remove';
+  static const OK = 'OK';
+  static const FAVORITE = 'FAVORITE';
   static const GET_WEATHER = 'Get Weather';
   static const SCATTERED_CLOUDS = 'Scattered Clouds';
   static const MY_FAVORITES = 'My Favorites';
   static const GET_CURRENT_LOCATION = 'Get Current Location';
   static const SEARCH_HERE = 'Search Here';
+  static const ERROR = 'Eror';
   static const API_KEY = '1u9Be1cASaCvn8rSpfZbw3kcXpi1HzuS';
   static const API_KEY_2 = 'Pw8KFxNBwil5aR34yaU4GpgtY4Z3TPFC';
   static const API_KEY_3 = 'm7jyXFajzAcyiyTDdYUNvKq1MahgtFTy';
@@ -39,13 +42,6 @@ class Constants {
     'WED',
     'THI'
   ];
-  // ignore: non_constant_identifier_names
-//  static List<Data> FAVORITE_CITY_LIST = [
-//    Data(key: TEL_AVIV_CITY_KEY, city: TEL_AVIV),
-//    Data(key: '213225', city: 'Jerusalem'),
-//    Data(key: '328328', city: 'London'),
-//    Data(key: '178087', city: 'Berlin')
-//  ];
   // ignore: non_constant_identifier_names
   static List<Data> FAVORITE_CITY_LIST = [];
   // ignore: non_constant_identifier_names

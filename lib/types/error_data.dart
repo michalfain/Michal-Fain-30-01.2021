@@ -1,4 +1,4 @@
 class ErrorData {
   String message;
-  String statusCode;
+  int statusCode;
 }

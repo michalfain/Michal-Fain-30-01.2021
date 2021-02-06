@@ -11,7 +11,7 @@ class StringText extends StatelessWidget {
   }
 }
 
-Widget searchContainer(String text, Function onTap) {
+Widget searchContainer({String text, Function onTap}) {
   return GestureDetector(
     onTap: onTap,
     child: Card(
@@ -54,4 +54,30 @@ class BasicButton extends StatelessWidget {
       ),
     );
   }
+}
+
+createAlertDialog(BuildContext context, String message) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: StringText(text: Constants.ERROR),
+          content: SingleChildScrollView(
+            child: StringText(
+              text: message,
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          actions: <Widget>[
+            Center(
+              child: RaisedButton(
+                child: Text(Constants.OK),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+        );
+      });
 }
