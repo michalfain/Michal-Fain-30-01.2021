@@ -7,12 +7,13 @@ class Data {
   String minTemp;
   String maxTemp;
 
-  Data(
-      {this.key = '',
-      this.city = '',
-      this.temperature = '',
-      this.description = '',
-      this.firstDay = -1,
-      this.minTemp = '',
-      this.maxTemp = ''});
+  Data({
+    this.key = '',
+    this.city = '',
+    this.temperature = '',
+    this.description = '',
+    this.firstDay = -1,
+    this.minTemp = '',
+    this.maxTemp = '',
+  });
 }

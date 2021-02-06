@@ -13,7 +13,7 @@ import 'package:weather_app/widgets/home_widget/get_weather_button.dart';
 import 'package:weather_app/widgets/home_widget/search_field_widget.dart';
 
 class Home extends StatefulWidget {
-  Home(this.cityKey, this.city);
+  Home(this.city, this.cityKey);
   final String cityKey;
   final String city;
   @override
@@ -28,20 +28,17 @@ class _HomeState extends State<Home> {
   bool isDaysLoading = true;
   bool isPressed = false;
   TextEditingController cityController = TextEditingController();
-  SnackBar snackBar = SnackBar(
-    content: StringText(text: 'hi'), //todo: handle snackbar
-  );
   List<Data> fiveDaysData = [];
 
   void initState() {
-    dataMethods.getTemperature(widget.cityKey, widget.city).then((value) {
+    dataMethods.getTemperature(widget.city, widget.cityKey).then((value) {
       {
         setState(() {
-          isLoading = false;
           weatherData.key = value.key;
           weatherData.city = value.city;
           weatherData.temperature = value.temperature;
           weatherData.description = value.description;
+          isLoading = false;
         });
       }
     });
@@ -54,94 +51,104 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  updateUI(String city) async {
-    if (city != null) {
-      Data d = await dataMethods.getData(city);
-      dataMethods.getTemperature(d.key, d.city);
-      List newFiveDays = await dataMethods.getFiveDaysForecast(d.city);
-      setState(() {
-        weatherData.key = d.key;
-        weatherData.city = d.city;
-        weatherData.temperature = d.temperature;
-        weatherData.description = d.description;
-        fiveDaysData = newFiveDays;
-        isPressed = true;
-      });
+  addToFavorites(Data data) {
+    if (data != null) {
+      generalMethods.setFavoriteCity(data.city);
+      generalMethods.setFavoriteKey(data.key);
+//      Constants.FAVORITE_CITY_LIST.add(data);
     }
+    setState(() {
+      isPressed = false;
+    });
   }
 
-  addToFavorites(Data data) {
-    setState(() {
-      if (data != null) {
-        Data d = Data();
-        d.city = data.city;
-        d.key = data.key;
-        d.temperature = data.temperature;
-        d.description = data.description;
-        Constants.FAVORITE_CITY_LIST.add(d);
-        isPressed = false;
-      }
-    });
+  updateUI(String city) {
+    if (city != null) {
+      dataMethods.getData(city).then((key) {
+        dataMethods.getTemperature(city, key.key).then((data) {
+          dataMethods.getFiveDaysForecast(city).then((value) {
+            setState(() {
+              weatherData = data;
+              fiveDaysData = value;
+            });
+          });
+        });
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Center(
-            child: StringText(text: Constants.WEATHER),
-          ),
-          leading: IconButton(
-            icon: Icon(Icons.favorite),
-            onPressed: () {
-              generalMethods.goToFavorite(context);
-            },
-          ),
+      appBar: AppBar(
+        title: Center(
+          child: StringText(text: Constants.WEATHER),
         ),
-        body: isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Builder(
-                builder: (context) {
-                  return BackgroundWidget(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        leading: IconButton(
+          icon: Icon(Icons.favorite),
+          onPressed: () {
+            generalMethods.goToFavorite(context);
+          },
+        ),
+      ),
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : BackgroundWidget(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      SearchField(
+                        controller: cityController,
+                        onTap: () {
+                          updateUI(cityController.text);
+                          cityController.clear();
+                          isPressed = true;
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SearchField(
-                            controller: cityController,
+                          CityData(
+                            data: weatherData,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CityData(
-                                data: weatherData,
-                              ),
-                              Container(
-                                child: !isPressed
-                                    ? GetWeatherButton(
-                                        onPress: updateUI(cityController.text),
-                                      )
-                                    : FavoriteButton(
-                                        onPress: addToFavorites(weatherData),
-                                      ),
-                              ),
-                            ],
+                          Container(
+                            child: !isPressed
+                                ? GetWeatherButton(
+                                    onPress: () async {
+                                      updateUI(cityController.text);
+                                      setState(() {
+                                        isPressed = true;
+                                      });
+                                    },
+                                  )
+                                : FavoriteButton(
+                                    onPressed: () async {
+                                      addToFavorites(weatherData);
+                                      setState(() {
+                                        isPressed = false;
+                                      });
+                                    },
+                                  ),
                           ),
-                          Center(
-                            child: StringText(
-                              text: weatherData.description,
-                              style: TextStyle(color: Colors.black, fontSize: 30.0),
-                            ),
-                          ),
-                          FiveDaysForecast(fiveDaysData), //todo: fix loading
                         ],
                       ),
-                    ),
-                  );
-                },
-              ));
+                      Center(
+                        child: StringText(
+                          text: weatherData.description,
+                          style: TextStyle(color: Colors.black, fontSize: 30.0),
+                        ),
+                      ),
+                      FiveDaysForecast(fiveDaysData), //todo: fix loading
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    );
   }
 }

@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/methods/general_methods.dart';
+import 'package:weather_app/types/data.dart';
 import '../general_widget/city_temp.dart';
 
-class FavoritesForecast extends StatelessWidget {
-  final GeneralMethods generalMethods = GeneralMethods();
+class FavoritesForecast extends StatefulWidget {
+  @override
+  _FavoritesForecastState createState() => _FavoritesForecastState();
+}
+
+class _FavoritesForecastState extends State<FavoritesForecast> {
+  GeneralMethods generalMethods = GeneralMethods();
+
+  @override
+  void initState() {
+//    generalMethods.getFavoriteCity();
+//    generalMethods.getFavoriteKey();
+//    Constants.FAVORITE_CITY_LIST.clear();
+    Constants.FAVORITE_CITY_LIST = generalMethods.getFavoriteList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +32,7 @@ class FavoritesForecast extends StatelessWidget {
             return TitleTemp(
               data: fav,
               onTap: () {
-                generalMethods.getFiveDaysForecast(context, fav.key, fav.city);
+                generalMethods.getFiveDaysForecast(context, fav.city);
               },
             );
           }),

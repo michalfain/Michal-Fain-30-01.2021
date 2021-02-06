@@ -4,14 +4,27 @@ import 'package:weather_app/constants.dart';
 import 'package:weather_app/methods/data_methods.dart';
 import 'package:weather_app/methods/general_methods.dart';
 import 'package:weather_app/types/data.dart';
+import 'package:weather_app/widgets/general_widget/basic_widgets.dart';
 
-class SearchField extends StatelessWidget {
-  SearchField({this.controller});
+class SearchField extends StatefulWidget {
+  SearchField({this.controller, this.onTap});
   final TextEditingController controller;
-//
-//  DataMethods dataMethods = DataMethods();
-//  GeneralMethods generalMethods = GeneralMethods();
-//  List<Data> searchedCities = [];
+  final Function onTap;
+
+  @override
+  _SearchFieldState createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
+  DataMethods dataMethods = DataMethods();
+  GeneralMethods generalMethods = GeneralMethods();
+  List<Data> searchedCities;
+
+  updateList(List citiesList) {
+    setState(() {
+      searchedCities = citiesList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +35,12 @@ class SearchField extends StatelessWidget {
           children: [
             TextField(
               textAlign: TextAlign.left,
-              controller: controller,
-//              onChanged: widget.onChanged,
+              controller: widget.controller,
+              onChanged: (value) {
+                dataMethods
+                    .searchCity(widget.controller.text)
+                    .then((value) => {searchedCities = value, updateList(searchedCities)});
+              },
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white54,
@@ -34,20 +51,15 @@ class SearchField extends StatelessWidget {
                 ),
               ),
             ),
-//            ListView.builder(
-//              itemCount: searchedCities.length,
-//              itemBuilder: (context, i) {
-//                return Text(searchedCities[i].city);
-////                  searchContainer(
-////                  searchedCities[i].city,
-////                  generalMethods.getFiveDaysForecast(
-////                    context,
-////                    searchedCities[i].key,
-////                    searchedCities[i].city,
-////                  ),
-////                );
-//              },
-//            ),
+            widget.controller.text.isEmpty
+                ? SizedBox()
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: searchedCities.length,
+                    itemBuilder: (context, i) {
+                      return searchContainer(searchedCities[i].city, widget.onTap);
+                    },
+                  )
           ],
         ),
       ),

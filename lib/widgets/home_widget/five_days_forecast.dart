@@ -13,32 +13,31 @@ class FiveDaysForecast extends StatefulWidget {
 class _FiveDaysForecastState extends State<FiveDaysForecast> {
   @override
   Widget build(BuildContext context) {
-    int dayOfWeek = widget.fiveDays[0].firstDay - 1;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         DaysForecast(
-          day: Constants.DAYS_OF_WEEK[dayOfWeek],
+          day: Constants.DAYS_OF_WEEK[widget.fiveDays[0].firstDay],
           maxTemp: widget.fiveDays[0].maxTemp,
           minTemp: widget.fiveDays[0].minTemp,
         ),
         DaysForecast(
-          day: dayOfWeek == 7 ? Constants.DAYS_OF_WEEK[0] : Constants.DAYS_OF_WEEK[dayOfWeek + 1],
+          day: Constants.DAYS_OF_WEEK[widget.fiveDays[1].firstDay],
           maxTemp: widget.fiveDays[1].maxTemp,
           minTemp: widget.fiveDays[1].minTemp,
         ),
         DaysForecast(
-          day: dayOfWeek == 5 ? Constants.DAYS_OF_WEEK[1] : Constants.DAYS_OF_WEEK[dayOfWeek + 2],
+          day: Constants.DAYS_OF_WEEK[widget.fiveDays[2].firstDay],
           maxTemp: widget.fiveDays[2].maxTemp,
           minTemp: widget.fiveDays[2].minTemp,
         ),
         DaysForecast(
-          day: dayOfWeek == 4 ? Constants.DAYS_OF_WEEK[2] : Constants.DAYS_OF_WEEK[dayOfWeek + 3],
+          day: Constants.DAYS_OF_WEEK[widget.fiveDays[3].firstDay],
           maxTemp: widget.fiveDays[3].maxTemp,
           minTemp: widget.fiveDays[3].minTemp,
         ),
         DaysForecast(
-          day: dayOfWeek == 3 ? Constants.DAYS_OF_WEEK[3] : Constants.DAYS_OF_WEEK[dayOfWeek + 4],
+          day: Constants.DAYS_OF_WEEK[widget.fiveDays[4].firstDay],
           maxTemp: widget.fiveDays[4].maxTemp,
           minTemp: widget.fiveDays[4].minTemp,
         ),

@@ -15,7 +15,10 @@ Widget searchContainer(String text, Function onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Card(
-      child: StringText(text: text),
+      child: StringText(
+        text: text,
+        style: TextStyle(fontSize: 30.0),
+      ),
     ),
   );
 }
@@ -28,8 +31,8 @@ Widget degreeSymbol() {
 }
 
 class BasicButton extends StatelessWidget {
-  BasicButton({this.onPress, this.title, this.color, this.child});
-  final Function onPress;
+  BasicButton({this.onPressed, this.title, this.color, this.child});
+  final Function onPressed;
   final String title;
   final Color color;
   final Widget child;
@@ -38,7 +41,7 @@ class BasicButton extends StatelessWidget {
     return RaisedButton(
       color: color,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      onPressed: onPress,
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

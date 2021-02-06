@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Home(Constants.TEL_AVIV_CITY_KEY, Constants.TEL_AVIV),
+      home: Home(Constants.TEL_AVIV, Constants.TEL_AVIV_CITY_KEY),
     );
   }
 }
