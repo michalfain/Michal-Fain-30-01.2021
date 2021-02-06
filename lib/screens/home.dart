@@ -57,6 +57,8 @@ class _HomeState extends State<Home> {
     if (data is ErrorData) {
       return createAlertDialog(context, Constants.ERROR);
     } else {
+      Constants.CITY_LIST.add(data.city);
+      Constants.KEY_LIST.add(data.key);
       generalMethods.setFavoriteCity(data.city);
       generalMethods.setFavoriteKey(data.key);
     }

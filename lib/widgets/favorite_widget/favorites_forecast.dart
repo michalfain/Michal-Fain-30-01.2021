@@ -14,9 +14,7 @@ class _FavoritesForecastState extends State<FavoritesForecast> {
 
   @override
   void initState() {
-//    generalMethods.getFavoriteCity();
-//    generalMethods.getFavoriteKey();
-//    Constants.FAVORITE_CITY_LIST.clear();
+    Constants.FAVORITE_CITY_LIST.clear();
     Constants.FAVORITE_CITY_LIST = generalMethods.getFavoriteList();
     super.initState();
   }
