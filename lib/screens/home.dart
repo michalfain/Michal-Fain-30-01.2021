@@ -54,7 +54,9 @@ class _HomeState extends State<Home> {
   }
 
   addToFavorites(Data data) {
-    if (data != null) {
+    if (data is ErrorData) {
+      return createAlertDialog(context, Constants.ERROR);
+    } else {
       generalMethods.setFavoriteCity(data.city);
       generalMethods.setFavoriteKey(data.key);
     }
@@ -64,7 +66,10 @@ class _HomeState extends State<Home> {
   }
 
   updateUI(String city) {
-    if (city != null) {
+    if (city == null) {
+      return createAlertDialog(context, Constants.ERROR);
+    }
+    {
       dataMethods.getData(city).then((key) {
         dataMethods.getTemperature(city, key.key).then((data) {
           dataMethods.getFiveDaysForecast(city).then((value) {
@@ -76,7 +81,7 @@ class _HomeState extends State<Home> {
         });
       });
     }
-    if (Constants.FAVORITE_CITY_LIST.contains(city)) {
+    if (Constants.CITY_LIST.contains(city)) {
       setState(() {
         isFavorite = true;
       });

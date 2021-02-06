@@ -31,14 +31,13 @@ class DataMethods {
       } else {
         ErrorData errorData = ErrorData();
         errorData.statusCode = response.statusCode;
-        //todo: handle exception
-
+        return errorData;
       }
     } catch (e) {
       ErrorData errorData = ErrorData();
       errorData.statusCode = response.statusCode;
       errorData.message = e.toString();
-      return e;
+      return errorData;
     }
   }
 
@@ -68,14 +67,13 @@ class DataMethods {
       } else {
         ErrorData errorData = ErrorData();
         errorData.statusCode = response.statusCode;
-        //todo: handle exception
-
+        return errorData;
       }
     } catch (e) {
       ErrorData errorData = ErrorData();
       errorData.statusCode = response.statusCode;
       errorData.message = e.toString();
-      return e;
+      return errorData;
     }
   }
 
@@ -114,14 +112,13 @@ class DataMethods {
       } else {
         ErrorData errorData = ErrorData();
         errorData.statusCode = response.statusCode;
-        //todo: handle exception
-
+        return errorData;
       }
     } catch (e) {
       ErrorData errorData = ErrorData();
       errorData.statusCode = response.statusCode;
       errorData.message = e.toString();
-      return e;
+      return errorData;
     }
   }
 
@@ -164,14 +161,13 @@ class DataMethods {
       } else {
         ErrorData errorData = ErrorData();
         errorData.statusCode = response.statusCode;
-        //todo: handle exception
-
+        return errorData;
       }
     } catch (e) {
       ErrorData errorData = ErrorData();
       errorData.statusCode = response.statusCode;
       errorData.message = e.toString();
-      return e;
+      return errorData;
     }
   }
 }
