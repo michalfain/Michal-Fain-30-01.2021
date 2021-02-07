@@ -1,3 +1,5 @@
+import 'package:weather_app/types/error_data.dart';
+
 class Data {
   String key;
   String city;
@@ -6,6 +8,7 @@ class Data {
   int firstDay;
   String minTemp;
   String maxTemp;
+  ErrorData errorData;
 
   Data({
     this.key = '',
@@ -15,5 +18,6 @@ class Data {
     this.firstDay = -1,
     this.minTemp = '',
     this.maxTemp = '',
+    this.errorData,
   });
 }

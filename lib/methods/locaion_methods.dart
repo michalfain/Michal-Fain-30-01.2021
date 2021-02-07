@@ -1,4 +1,6 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:weather_app/constants.dart';
+import 'package:weather_app/types/error_data.dart';
 
 class Location {
   double latitude;
@@ -10,7 +12,9 @@ class Location {
       longitude = position.longitude;
       latitude = position.latitude;
     } catch (e) {
-      print(e); //todo: handle exception
+//      ErrorData errorData = ErrorData();
+//      errorData.message = Constants.ERROR;
+      return e;
     }
   }
 }

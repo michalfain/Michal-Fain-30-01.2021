@@ -53,7 +53,6 @@ class GeneralMethods {
   }
 
   setFavoriteKey(String key) async {
-//    Constants.KEY_LIST.add(key);
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setStringList(Constants.FAVORITE_LIST_KEY, Constants.KEY_LIST);
   }

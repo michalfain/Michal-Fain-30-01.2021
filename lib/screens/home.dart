@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   bool isPressed = false;
   bool isFavorite = false;
   TextEditingController cityController = TextEditingController();
-  List<Data> fiveDaysData = [];
+  List fiveDays = [];
 
   void initState() {
     dataMethods.getTemperature(widget.city, widget.cityKey).then((value) {
@@ -45,16 +45,21 @@ class _HomeState extends State<Home> {
       }
     });
     dataMethods.getFiveDaysForecast(widget.city).then((value) => {
-          setState(() {
-            isDaysLoading = false;
-            fiveDaysData = value;
-          })
+          if (value is List)
+            {
+              setState(() {
+                isDaysLoading = false;
+                fiveDays = value;
+              })
+            }
+          else
+            {createAlertDialog(context, Constants.NO_DATA)}
         });
     super.initState();
   }
 
   addToFavorites(Data data) {
-    if (data is ErrorData) {
+    if (data.errorData == null) {
       return createAlertDialog(context, Constants.ERROR);
     } else {
       Constants.CITY_LIST.add(data.city);
@@ -68,7 +73,7 @@ class _HomeState extends State<Home> {
   }
 
   updateUI(String city) {
-    if (city == null) {
+    if (cityController.text.isEmpty) {
       return createAlertDialog(context, Constants.ERROR);
     }
     {
@@ -77,7 +82,7 @@ class _HomeState extends State<Home> {
           dataMethods.getFiveDaysForecast(city).then((value) {
             setState(() {
               weatherData = data;
-              fiveDaysData = value;
+              fiveDays = value;
             });
           });
         });
@@ -166,7 +171,7 @@ class _HomeState extends State<Home> {
                             style: TextStyle(color: Colors.black, fontSize: 30.0),
                           ),
                         ),
-                        FiveDaysForecast(fiveDaysData), //todo: fix loading
+//                        weatherData.errorData != null ? SizedBox() : FiveDaysForecast(fiveDays),
                       ],
                     ),
                   ),

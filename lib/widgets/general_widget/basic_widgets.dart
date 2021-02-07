@@ -31,11 +31,11 @@ Widget degreeSymbol() {
 }
 
 class BasicButton extends StatelessWidget {
-  BasicButton({this.onPressed, this.title, this.color, this.child});
+  BasicButton({this.onPressed, this.title, this.child, this.color});
   final Function onPressed;
   final String title;
-  final Color color;
   final Widget child;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return RaisedButton(

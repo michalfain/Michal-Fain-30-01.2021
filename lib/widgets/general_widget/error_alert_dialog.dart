@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'basic_widgets.dart';
 
-class ErrorSnackBar extends StatelessWidget {
-  ErrorSnackBar({this.message});
+class ErrorAlertDialog extends StatelessWidget {
+  ErrorAlertDialog({this.message});
   final String message;
   @override
   Widget build(BuildContext context) {
