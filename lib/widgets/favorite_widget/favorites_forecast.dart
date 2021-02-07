@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/methods/data_methods.dart';
 import 'package:weather_app/methods/general_methods.dart';
-import 'package:weather_app/types/data.dart';
 import '../general_widget/city_temp.dart';
 
 class FavoritesForecast extends StatefulWidget {

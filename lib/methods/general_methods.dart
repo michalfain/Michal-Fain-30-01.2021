@@ -42,25 +42,25 @@ class GeneralMethods {
 
   setFavoriteCity(String city) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    Constants.CITY_LIST.add(city);
     preferences.setStringList(Constants.FAVORITE_LIST_CITY, Constants.CITY_LIST);
   }
 
   getFavoriteCity() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     List city = preferences.getStringList(Constants.FAVORITE_LIST_CITY);
-    print(Constants.CITY_LIST);
     return city;
   }
 
   setFavoriteKey(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    Constants.KEY_LIST.add(key);
     preferences.setStringList(Constants.FAVORITE_LIST_KEY, Constants.KEY_LIST);
   }
 
   getFavoriteKey() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     List key = preferences.getStringList(Constants.FAVORITE_LIST_KEY);
-    print(Constants.KEY_LIST);
     return key;
   }
 
