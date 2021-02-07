@@ -12,8 +12,6 @@ class Location {
       longitude = position.longitude;
       latitude = position.latitude;
     } catch (e) {
-//      ErrorData errorData = ErrorData();
-//      errorData.message = Constants.ERROR;
       return e;
     }
   }

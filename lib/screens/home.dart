@@ -4,7 +4,6 @@ import 'package:weather_app/constants.dart';
 import 'package:weather_app/methods/data_methods.dart';
 import 'package:weather_app/methods/general_methods.dart';
 import 'package:weather_app/types/data.dart';
-import 'package:weather_app/types/error_data.dart';
 import 'package:weather_app/widgets/general_widget/background_widget.dart';
 import 'package:weather_app/widgets/general_widget/basic_widgets.dart';
 import 'package:weather_app/widgets/home_widget/city_data.dart';
