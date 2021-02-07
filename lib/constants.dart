@@ -19,6 +19,7 @@ class Constants {
   static const SEARCH_HERE = 'Search Here';
   static const ERROR = 'Error';
   static const NO_DATA = 'No Data, please make sure you are connected';
+  static const NO_CITY = 'Please select a city from list';
   static const API_KEY = '1u9Be1cASaCvn8rSpfZbw3kcXpi1HzuS';
   static const API_KEY_2 = 'Pw8KFxNBwil5aR34yaU4GpgtY4Z3TPFC';
   static const API_KEY_3 = 'm7jyXFajzAcyiyTDdYUNvKq1MahgtFTy';

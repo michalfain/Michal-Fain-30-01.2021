@@ -59,8 +59,8 @@ class _HomeState extends State<Home> {
   }
 
   addToFavorites(Data data) {
-    if (data.errorData == null) {
-      return createAlertDialog(context, Constants.ERROR);
+    if (data.errorData != null) {
+      return createAlertDialog(context, Constants.NO_CITY);
     } else {
       Constants.CITY_LIST.add(data.city);
       Constants.KEY_LIST.add(data.key);
@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
 
   updateUI(String city) {
     if (cityController.text.isEmpty) {
-      return createAlertDialog(context, Constants.ERROR);
+      return createAlertDialog(context, Constants.NO_CITY);
     }
     {
       dataMethods.getData(city).then((key) {
@@ -149,7 +149,7 @@ class _HomeState extends State<Home> {
                                       onPress: () async {
                                         updateUI(cityController.text);
                                         setState(() {
-                                          isPressed = true;
+                                          isPressed = cityController.text.isEmpty ? false : true;
                                           cityController.clear();
                                         });
                                       },
@@ -171,7 +171,7 @@ class _HomeState extends State<Home> {
                             style: TextStyle(color: Colors.black, fontSize: 30.0),
                           ),
                         ),
-//                        weatherData.errorData != null ? SizedBox() : FiveDaysForecast(fiveDays),
+                        weatherData.errorData != null ? SizedBox() : FiveDaysForecast(fiveDays),
                       ],
                     ),
                   ),
