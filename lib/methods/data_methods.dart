@@ -7,11 +7,11 @@ import 'package:weather_app/types/error_data.dart';
 import 'package:weather_app/widgets/general_widget/basic_widgets.dart';
 import 'package:weather_app/widgets/general_widget/error_alert_dialog.dart';
 
-//const apiKey = Constants.API_KEY;
+const apiKey = Constants.API_KEY;
 //const apiKey = Constants.API_KEY_2;
 //const apiKey = Constants.API_KEY_3;
 //const apiKey = Constants.API_KEY_4;
-const apiKey = Constants.API_KEY_5;
+//const apiKey = Constants.API_KEY_5;
 //const apiKey = Constants.API_KEY_6;
 //const apiKey = Constants.API_KEY_7;
 const website = Constants.WEBSITE;
