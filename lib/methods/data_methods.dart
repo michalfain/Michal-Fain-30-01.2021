@@ -7,10 +7,10 @@ import 'package:weather_app/types/error_data.dart';
 import 'package:weather_app/widgets/general_widget/basic_widgets.dart';
 import 'package:weather_app/widgets/general_widget/error_alert_dialog.dart';
 
-const apiKey = Constants.API_KEY;
+//const apiKey = Constants.API_KEY;
 //const apiKey = Constants.API_KEY_2;
 //const apiKey = Constants.API_KEY_3;
-//const apiKey = Constants.API_KEY_4;
+const apiKey = Constants.API_KEY_4;
 //const apiKey = Constants.API_KEY_5;
 //const apiKey = Constants.API_KEY_6;
 //const apiKey = Constants.API_KEY_7;
@@ -19,8 +19,8 @@ const website = Constants.WEBSITE;
 class DataMethods {
   Future getData(String city) async {
     Data data = Data();
-    http.Response response =
-        await http.get('$website/locations/v1/cities/search?apikey=$apiKey&q=$city&language=en-us&details=true');
+    http.Response response = await http
+        .get(Uri.parse('$website/locations/v1/cities/search?apikey=$apiKey&q=$city&language=en-us&details=true'));
     try {
       if (response.statusCode == 200) {
         String body = response.body;
@@ -44,7 +44,8 @@ class DataMethods {
       return returnedData;
     } else {
       Data data = Data();
-      http.Response response = await http.get('$website/currentconditions/v1/$key?apikey=$apiKey&language=en-us');
+      http.Response response =
+          await http.get(Uri.parse('$website/currentconditions/v1/$key?apikey=$apiKey&language=en-us'));
       try {
         if (response.statusCode == 200) {
           String body = response.body;
@@ -71,8 +72,8 @@ class DataMethods {
       return returnedKey;
     } else {
       Data data = Data();
-      http.Response response = await http.get(
-          '$website/forecasts/v1/daily/5day/${returnedKey.key}?apikey=$apiKey&language=en-us&details=true&metric=true');
+      http.Response response = await http.get(Uri.parse(
+          '$website/forecasts/v1/daily/5day/${returnedKey.key}?apikey=$apiKey&language=en-us&details=true&metric=true'));
       try {
         if (response.statusCode == 200) {
           DateTime date = DateTime.now();
@@ -102,7 +103,7 @@ class DataMethods {
 
   Future searchCity(String search) async {
     http.Response response =
-        await http.get('$website/locations/v1/cities/autocomplete?apikey=$apiKey&q=$search&language=en-us');
+        await http.get(Uri.parse('$website/locations/v1/cities/autocomplete?apikey=$apiKey&q=$search&language=en-us'));
     Data d = Data();
     try {
       if (response.statusCode == 200) {

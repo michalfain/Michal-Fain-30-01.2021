@@ -56,7 +56,7 @@ class _SearchFieldState extends State<SearchField> {
                 ? SizedBox()
                 : ListView.builder(
                     shrinkWrap: true,
-                    itemCount: searchedCities.length,
+                    itemCount: 1,
                     itemBuilder: (context, i) {
                       return searchContainer(
                           text: searchedCities[i].city,

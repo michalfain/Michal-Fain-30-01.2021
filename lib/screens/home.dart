@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   bool isPressed = false;
   bool isFavorite = false;
   TextEditingController cityController = TextEditingController();
-  List fiveDays = [];
+  List<Data> fiveDays = [];
 
   void initState() {
     dataMethods.getTemperature(widget.city, widget.cityKey).then((value) {
@@ -170,7 +170,8 @@ class _HomeState extends State<Home> {
                             style: TextStyle(color: Colors.black, fontSize: 30.0),
                           ),
                         ),
-                        weatherData.errorData != null ? SizedBox() : FiveDaysForecast(fiveDays),
+//                        weatherData.errorData != null ? SizedBox() : FiveDaysForecast(fiveDays),
+                        fiveDays.length == 0 ? SizedBox() : FiveDaysForecast(fiveDays),
                       ],
                     ),
                   ),
